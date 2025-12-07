@@ -35,7 +35,37 @@ func twoSum(nums []int, target int) []int {
 		}
 	}
 	return nil
+}
 
+func toSumMap(nums []int, target int) []int {
+
+	/*for i := 0; i < len(nums); i++ {
+		com := target - nums[i]
+
+		if value, exists := numMap[com]; exists {
+			return []int{value, i}
+
+		}
+		numMap[nums[i]] = i
+	}*/
+
+	// 创建一个哈希表，key是数字，value是索引
+	numMap := make(map[int]int)
+
+	for i, num := range nums {
+		// 计算需要的补数
+		complement := target - num
+
+		// 检查补数是否在哈希表中
+		if idx, found := numMap[complement]; found {
+			return []int{idx, i}
+		}
+
+		// 将当前数字和索引存入哈希表
+		numMap[num] = i
+	}
+
+	return nil
 }
 
 func main() {
@@ -44,5 +74,6 @@ func main() {
 	target := 6
 
 	fmt.Println(twoSum(nums, target))
+	fmt.Println(toSumMap(nums, target))
 
 }
